@@ -29,4 +29,11 @@ public class PostController {
         List<Post> list = service.findByTitle(text);
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping("/author")
+    public ResponseEntity<List<Post>> findByAuthor(@RequestParam(value = "text", defaultValue = "") String text) {
+        text = URL.decodeParam(text);
+        List<Post> list = service.searchInBody(text);
+        return ResponseEntity.ok(list);
+    }
 }

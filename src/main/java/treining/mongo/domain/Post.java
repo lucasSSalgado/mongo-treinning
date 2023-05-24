@@ -22,7 +22,7 @@ public class Post implements Serializable {
     private Date date;
     private String title;
     private String body;
-    private AuthorDTO autor;
+    private AuthorDTO author;
 
     private List<CommentDTO> commentDTOList = new ArrayList<>();
 
@@ -31,6 +31,6 @@ public class Post implements Serializable {
         this.date = date;
         this.title = title;
         this.body = body;
-        this.autor = autor;
+        this.author = autor;
     }
 }
