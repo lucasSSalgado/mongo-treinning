@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import treining.mongo.domain.Post;
 import treining.mongo.domain.User;
 import treining.mongo.dto.UserDTO;
 import treining.mongo.services.UserService;
@@ -31,6 +32,12 @@ public class UserController {
         User users = service.findById(id);
         UserDTO userDTO = new UserDTO(users);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User users = service.findById(id);
+        return ResponseEntity.ok(users.getPosts());
     }
 
     @PostMapping
