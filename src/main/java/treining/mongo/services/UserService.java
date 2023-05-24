@@ -33,7 +33,16 @@ public class UserService {
         repository.deleteById(id);
     }
 
-//    public void fromDTO(UserDTO dto) {
-//        User user = new User(dto.getId(), dto.getName(), dto.getEmail(), "");
-//    }
+    public User updateById(User user) {
+        User newUser = repository.findById(user.getId()).orElseThrow(()
+                -> new ObjNotFindException("Objeto nao encontrato para id: " + user.getId()));
+        updateData(newUser, user);
+        return repository.save(newUser);
+    }
+
+    private void updateData(User newUser, User user) {
+        newUser.setName(user.getName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+    }
 }

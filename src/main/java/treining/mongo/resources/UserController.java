@@ -46,4 +46,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> updateById(@PathVariable String id, @RequestBody User user) {
+        user.setId(id);
+        User updateUser = service.updateById(user);
+        UserDTO userDTO = new UserDTO(updateUser);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userDTO);
+    }
+
 }
