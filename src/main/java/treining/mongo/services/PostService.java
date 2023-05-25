@@ -6,6 +6,7 @@ import treining.mongo.domain.Post;
 import treining.mongo.exceptions.ObjNotFindException;
 import treining.mongo.repository.PostRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,5 +26,10 @@ public class PostService {
 
     public List<Post> searchInBody(String text) {
         return repository.searchInBody(text);
+    }
+
+    public List<Post> searchByTextAndData(Date minDate, Date maxDate, String text) {
+        maxDate = new Date(maxDate.getTime() + 24 * 60 *60 * 1000);
+        return repository.searchByTextAndData(minDate, maxDate, text);
     }
 }

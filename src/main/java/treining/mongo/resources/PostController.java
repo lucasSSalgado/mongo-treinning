@@ -1,13 +1,13 @@
 package treining.mongo.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import treining.mongo.domain.Post;
 import treining.mongo.services.PostService;
 import treining.mongo.util.URL;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,6 +34,18 @@ public class PostController {
     public ResponseEntity<List<Post>> findByAuthor(@RequestParam(value = "text", defaultValue = "") String text) {
         text = URL.decodeParam(text);
         List<Post> list = service.searchInBody(text);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/fullsearch")
+    public ResponseEntity<List<Post>> searchByTextAndData(
+            @RequestParam(value = "text", defaultValue = "") String text,
+            @RequestParam(value = "minDate", defaultValue = "") String minDate,
+            @RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
+        text = URL.decodeParam(text);
+        Date min = URL.converteDate(minDate, new Date(0L));
+        Date max = URL.converteDate(maxDate, new Date());
+        List<Post> list = service.searchByTextAndData(min, max, text);
         return ResponseEntity.ok(list);
     }
 }
